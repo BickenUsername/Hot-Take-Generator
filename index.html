@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>The Fire Emblem Hot Take Generator</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      padding: 50px;
+    }
+    button {
+      font-size: 1.2em;
+      padding: 10px 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>The Fire Emblem Hot Take Generator</h1>
+  <p id="hotTake">Click the button for a new hot take</p>
+  <button onclick="generateHotTake()">Generate Hot Take</button>
+
+  <script>
+    const templates = [
+      "The best unit in the series is {character} and it's not even close.",
+      "{character} is my waifu.",
+      "{character} fucks.",
+      "I totally ship  {character} and {character}!",
+      "I wish {character} was real...",
+      "{character} is so cute.",
+      "{character} is the most underrated unit in the series!",
+      "More people should use {character}",
+      "{game} is the best game in the series!",
+      "I don't associate with people who play {game}.",
+      "{game} could really use {mechanic}.",
+      "{character} is way too overrated!",
+      "I'm tired of denying it! I hate {character} with a burning passion, and want to see them dead!",
+      "If you're not playing a {run} {run} only using {character}, you're not playing REAL Fire Emblem.",
+      "{character} is only popular because they're hot.",
+      "{game} would be better with more {concept}",
+      "{game} would be better with {mechanic}",
+      "{character} should be able to use {weapon_type}.",
+      "People who use {character} should be shot.",
+      "{character} would actually be good if they could just use {weapon_type}!",
+      "I refuse to play {game} because it doesn't have {character}",
+      "I don't play Fire Emblem games that don't have {concept}.",
+      "Kaga did {concept} better!",
+      "If Kaga were still around, {game} would have more {concept}!",
+      "People who ship {character} and {character} are genuinely disgusting.",
+      "Personally, I can't stand the {character} archetype.",
+      "{character} is the best {archetype} in the series.",
+      "{character} fans make me sick.",
+      "{character} makes me sick.",
+      "If {game} had {character}, it wouldn't need a {archetype}!",
+      "Personally, I only use characters that use {weapon_type}.",
+      "{game} doesn't have enough {concept}...",
+      "I would do a {run} run of {game}, but the game doesn't have {mechanic}.",
+      "{player} is so overrated.",
+      "{player} is the best channel on YouTube!",
+      "{player} is so underrated.",
+      "{character} would totally beat {character} in a fight.",
+      "{character} is the master of {concept}",
+      "Personally, I always make sure to kill {character} on their join map. Game is more fun that way.",
+      "{character}? More like benchwarmer! AYOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO!",
+      "The series should have ended at {game}.",
+      "Everyone who defends {character} is coping.",
+      "{character} ruined Fire Emblem.",
+      "{game} ruined Fire Emblem.",
+      "The {archetype} archetype peaked with {character}.",
+      "{mechanic} was the worst thing to ever happen to the series.",
+      "I can't believe people still pretend {mechanic} was a good idea.",
+      "{character} should have been in Smash Bros.",
+      "{game} fans are subhuman scum.",
+      "Stop pretending {character} isn't just a reskin of {character}.",
+      "No game has done {concept} as well as {game}.",
+      "Fire Emblem hasn't been good since {game}.",
+      "I play Fire Emblem for the {concept}, not the gameplay.",
+      "The fandom has collectively gaslit itself into thinking {character} is good.",
+      "If loving {character} is wrong, I don't want to be right.",
+      "{game} is just a glorified dating simulator.",
+      "{archetype}s are for cowards who can't commit to real units.",
+      "{character} doesn't know what sex is, and you can't convince me otherwise.",
+      "{character} is a total dumbass.",
+      "{character} would be better if they started as a villager.",
+      "If your favorite character is {character}, you have terrible taste.",
+      "{archetype}s stopped being interesting after {character}.",
+      "{game} only gets praise because of nostalgia goggles.",
+      "Calling {character} a good unit is peak delusion.",
+      "{mechanic} ruined the series more than {game} ever did.",
+      "People who use {character} are just into suffering.",
+      "{mechanic} adds nothing except pain.",
+      "{character} fans are the most annoying people on earth.",
+      "{player} tries so hard to make {game} seem deep. It isn’t.",
+      "{game} fans treat {concept} like it’s peak storytelling.",
+      "{character} is just {character} with a new coat of paint and worse stats.",
+      "{game} is the Fire Emblem equivalent of plain toast.",
+      "{mechanic} is only fun if you hate yourself.",
+      "Fire Emblem is EASY. Just use {character} lmao.",
+    ];
+
+    const data = {
+      character: ["Marth", "Caeda", "Jagen", "Cain", "Abel", "Gordin", "Ogma", "Barst", "Bord", "Cord", "Navarre", "Minerva", "Linde", "Palla", "Catria", "Est", "The Young Version of Tiki", "Anna", "Camus", "Alm", "Gray", "Tobin", "Kliff", "Faye", "Lukas", "Silque", "Clair", "Clive", "Forsyth", "Python", "Luthier", "Mathilda", "Delthea", "Tatiana", "Zeke", "Mycen", "Celica", "Mae", "Boey", "Genny", "Saber", "Valbar", "Leon", "Kamui", "Jesse", "Atlas", "Sonya", "Deen", "Nomah", "Conrad", "Fernand", "Mila", "Duma", "Rinea", "Berkut", "Slayde", "Desaix", "Rinea (On Fire)", "Sigurd", "Naoise", "Alec", "Arden", "Azel", "Lex", "Quan", "Ethlyn", "Finn", "Midir", "Dew", "Edain", "Ayra", "Deirdre", "Jamke", "Holyn", "Lachesis", "Beowolf", "Lewyn", "Silvia", "Erinys", "Tailtiu", "Brigid", "Claude (The FE4 Version SPECIFICALLY)", "Oifey", "Manfroy", "Arvis", "Seliph", "Lana", "Larcei", "Oifey", "Lester", "Shannan", "Patty", "Ares", "Lene", "Tine", "Hannibal", "Altena", "Julius", "Ishtar", "Eldigan", "Travant", "Leif", "Osain", "Halvan", "Eyvel", "Dagdar", "Tanya", "Marty", "Ronan", "Safy", "Lifis", "Lara", "Fergus", "Karin", "Dalsin", "Asbel", "Nanna", "Shiva", "Olwen", "Mareeta", "Perne", "Tina", "Shannam", "Xavier", "Ced", "Raydrik", "Roy", "Old Man Marcus", "Alen", "Lance", "Wolt", "Bors", "Merlinus", "Dieck", "Shanna", "Chad", "Lugh", "Clarine", "Rutger", "Dorothy", "Sue", "Lilina", "Gwendolyn", "Fir", "Gonzalez", "Geese", "Larum", "Raigh", "Cath", "Melady", "Perceval", "Cecilia", "Sophia", "Fae", "Lyn", "Sain", "Kent", "Florina", "Wil", "Dorcas", "Serra", "Erk", "Rath", "Matthew", "Nils", "Wallace", "Eliwood", "Marcus", "Lowen", "Rebecca", "Bartre", "Hector", "Oswin", "Guy", "Priscilla", "Raven", "Canas", "Dart", "Fiora", "Legault", "Ninian", "Isadora", "Heath", "Hawkeye", "Farina", "Pent", "Louise", "Nino", "Jaffar", "Vaida", "Renault", "Athos", "Zephiel", "Guinevere", "Nergal", "Erika", "Seth", "Franz", "Gilliam", "Vanessa", "Moulder", "Ross", "Garcia", "Neimi", "Colm", "Lute", "Joshua", "Ephraim", "Forde", "Kyle", "Orson", "Tana", "Amelia", "Gerik", "Tethys", "Marisa", "L'Arachel", "Dozla", "Ewan", "Cormag", "Cormag", "Rennac", "Duessel", "Lyon", "Ike", "Titania", "Oscar", "Boyd", "Shinon", "Soren", "Mia", "Ilyana", "Mist", "Rolf", "Marcia", "Lethe", "Mordecai", "Volke", "Brom", "Nephenee", "Zihark", "Sothe", "Jill", "Astrid", "Makalov", "Tormod", "Devdan", "Tanith", "Reyson", "Ranulf", "Harr", "Lucia", "Elincia", "Ashnard", "Black Knight", "Micaiah", "Edward", "Leonardo", "Nolan", "Meg", "Volug", "Fiona", "Naliah", "Danved", "Skrimir", "Sanaki", "Pelleas", "Oliver", "Yune", "Chrom", "Robin", "Lissa", "Frederick", "Sully", "Stahl", "Vaike", "Sumia", "Kellam", "Donnel", "Lon'qu", "Ricken", "Maribelle", "Panne", "Gaius", "Cordelia", "Gregor", "Nowi", "Libra", "Tharja", "Olivia", "Cherche", "Henry", "Say'ri", "Adult Tiki", "Basilio", "Flava", "Lucina", "Owain", "Inigo", "Cynthia", "Severa", "Morgan", "Noire", "Nah", "Gangrel", "Emmeryn", "Aversa", "Priam", "Corrin", "Azura", "Felicia", "Jakob", "Silas", "Kaze", "Mozu", "Shura", "Shura's Boots", "Ryoma", "Hinoka", "Takumi", "Sakura", "Saizo", "Kagero", "Setsuna", "Azama", "Hinata", "Oboro", "Hana", "Subaki", "Hayato", "Rinkah", "Orochi", "Kaden", "Scarlet", "Xander", "Camilla", "Leo", "Elise", "Peri", "Beruka", "Odin Specifically (Not Owain)", "Niles", "Effie", "Arthur", "Nyx", "Charlotte", "Benny", "Keaton", "Gunther", "Flora", "Yukimara", "Izana", "Fuga", "Byleth", "Edelgard", "Hubert", "Ferdinand", "Linhardt", "Caspar", "Bernadetta", "Dorothea", "Petra", "Dimitri", "Dedue", "Felix", "Sylvain", "Ashe", "Mercedes", "Annette", "Ingrid", "Claude", "Lorenz", "Raphael", "Ignatz", "Lysithea", "Marianne", "Hilda", "Leonie", "Seteth", "Flayn", "Hanneman", "Manuela", "Gilbert", "Alois", "Catherine", "Shamir", "Cyril", "Jeritza", "Yuri", "Balthus", "Constance", "Hapi", "Sothis", "Jeralt", "Monica", "Lonato", "Rhea", "Kostas", "Alear", "Vander", "Clanne", "Framme", "Alfred", "Céline", "Boucheron", "Etie", "Louis", "Chloé", "Jean", "Diamant", "Alcryst", "Amber", "Jade", "Citrinne", "Lapis", "Yunaka", "Saphir", "Ivy", "Hortensia", "Zelkov", "Kagetsu", "Rosado", "Goldmary", "Timerra", "Fogado", "Merrin", "Panette", "Bunet", "Pandreo", "Seadall", "Veyle", "Mauvier", "Gregory", "Zephia", "Griss", "Veyle (but evil)", "Sombron", "Marni"],
+      game: ["Shadow Dragon and the Blade of Light", "Gaiden", "Mystery of the Emblem", "Genealogy of the Holy War", "Thracia 776", "Binding Blade", "Blazing Blade", "Sacred Stones", "Path of Radiance", "Radiant Dawn", "Awakening", "Fates", "Shadow Dragon (DS)", "New Mystery of the Emblem", "Three Houses", "Engage", "Tokyo Mirage Sessions", "Heroes", "Warriors", "Three Hopes"],
+      weapon_type: ["swords", "lances", "axes", "bows", "tomes"],
+      concept: ["incest", "war crimes", "child soldiers", "slavery", "eugenics", "mind control", "romance", "cults", "racism", "parental abuse", "dead parents", "trauma"],
+      mechanic: ["fatigue", "permadeath", "the weapon triangle", "supports", "promotions", "critical hits", "terrain", "classes", "fog of war", "reinforcements", "pair-ups", "weapon durability", "same-turn reinforcements"],
+      archetype: ["Jagen", "Cain and Abel", "Bord an Cord", "Navarre", "Whitewing", "Est", "Camus"],
+      run: ["iron man", "zero growths", "reverse recruitment", "randomizer"],
+      player: ["Pavise", "Faerghast", "Mekkah", "Armads4Prez", "Zoran", "Bismix", "Excelblem", "LuckyCrit", "BenFM", "Halvey", "ActualLizard", "BigKlingy", "Professor Bopper", "Choops", "Scarf", "MythrilZenith", "ShaneBrained", "Dani Doyle", "EatUrGrns", "Pheonixmaster1", "Speedwinghere", "Deltre", "dondon151", "FEMSPaint", "Bicken"],
+    };
+
+    function generateHotTake() {
+      let template = templates[Math.floor(Math.random() * templates.length)];
+      template = template.replace(/\{(\w+)\}/g, (_, key) => {
+        const options = data[key];
+        return options[Math.floor(Math.random() * options.length)];
+      });
+      document.getElementById("hotTake").innerText = template;
+    }
+  </script>
+</body>
+</html>
