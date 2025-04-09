@@ -5,20 +5,25 @@
   <title>The Fire Emblem Hot Take Generator</title>
   <style>
     body {
-      font-family: sans-serif;
+      font-family: 'Egyptienne';
       text-align: center;
       padding: 50px;
     }
     button {
       font-size: 1.2em;
       padding: 10px 20px;
+      cursor: pointer;
+    }
+    #hotTake {
+      margin-top: 30px;
+      font-size: 1.5em;
     }
   </style>
 </head>
 <body>
   <h1>The Fire Emblem Hot Take Generator</h1>
-  <p id="hotTake">Click the button for a new hot take</p>
-  <button onclick="generateHotTake()">Generate Hot Take</button>
+  <button id="hotTakeButton" onclick="generateHotTake()">Generate Hot Take</button>
+  <div id="hotTake"></div>
 
   <script>
     const templates = [
@@ -99,7 +104,7 @@
     ];
 
     const data = {
-      character: ["Marth", "Caeda", "Jagen", "Cain", "Abel", "Gordin", "Ogma", "Barst", "Bord", "Cord", "Navarre", "Minerva", "Linde", "Palla", "Catria", "Est", "The Young Version of Tiki", "Anna", "Camus", "Alm", "Gray", "Tobin", "Kliff", "Faye", "Lukas", "Silque", "Clair", "Clive", "Forsyth", "Python", "Luthier", "Mathilda", "Delthea", "Tatiana", "Zeke", "Mycen", "Celica", "Mae", "Boey", "Genny", "Saber", "Valbar", "Leon", "Kamui", "Jesse", "Atlas", "Sonya", "Deen", "Nomah", "Conrad", "Fernand", "Mila", "Duma", "Rinea", "Berkut", "Slayde", "Desaix", "Rinea (On Fire)", "Sigurd", "Naoise", "Alec", "Arden", "Azel", "Lex", "Quan", "Ethlyn", "Finn", "Midir", "Dew", "Edain", "Ayra", "Deirdre", "Jamke", "Holyn", "Lachesis", "Beowolf", "Lewyn", "Silvia", "Erinys", "Tailtiu", "Brigid", "Claude (The FE4 Version SPECIFICALLY)", "Oifey", "Manfroy", "Arvis", "Seliph", "Lana", "Larcei", "Oifey", "Lester", "Shannan", "Patty", "Ares", "Lene", "Tine", "Hannibal", "Altena", "Julius", "Ishtar", "Eldigan", "Travant", "Leif", "Osain", "Halvan", "Eyvel", "Dagdar", "Tanya", "Marty", "Ronan", "Safy", "Lifis", "Lara", "Fergus", "Karin", "Dalsin", "Asbel", "Nanna", "Shiva", "Olwen", "Mareeta", "Perne", "Tina", "Shannam", "Xavier", "Ced", "Raydrik", "Roy", "Old Man Marcus", "Alen", "Lance", "Wolt", "Bors", "Merlinus", "Dieck", "Shanna", "Chad", "Lugh", "Clarine", "Rutger", "Dorothy", "Sue", "Lilina", "Gwendolyn", "Fir", "Gonzalez", "Geese", "Larum", "Raigh", "Cath", "Melady", "Perceval", "Cecilia", "Sophia", "Fae", "Lyn", "Sain", "Kent", "Florina", "Wil", "Dorcas", "Serra", "Erk", "Rath", "Matthew", "Nils", "Wallace", "Eliwood", "Marcus", "Lowen", "Rebecca", "Bartre", "Hector", "Oswin", "Guy", "Priscilla", "Raven", "Canas", "Dart", "Fiora", "Legault", "Ninian", "Isadora", "Heath", "Hawkeye", "Farina", "Pent", "Louise", "Nino", "Jaffar", "Vaida", "Renault", "Athos", "Zephiel", "Guinevere", "Nergal", "Erika", "Seth", "Franz", "Gilliam", "Vanessa", "Moulder", "Ross", "Garcia", "Neimi", "Colm", "Lute", "Joshua", "Ephraim", "Forde", "Kyle", "Orson", "Tana", "Amelia", "Gerik", "Tethys", "Marisa", "L'Arachel", "Dozla", "Ewan", "Cormag", "Cormag", "Rennac", "Duessel", "Lyon", "Ike", "Titania", "Oscar", "Boyd", "Shinon", "Soren", "Mia", "Ilyana", "Mist", "Rolf", "Marcia", "Lethe", "Mordecai", "Volke", "Brom", "Nephenee", "Zihark", "Sothe", "Jill", "Astrid", "Makalov", "Tormod", "Devdan", "Tanith", "Reyson", "Ranulf", "Harr", "Lucia", "Elincia", "Ashnard", "Black Knight", "Micaiah", "Edward", "Leonardo", "Nolan", "Meg", "Volug", "Fiona", "Naliah", "Danved", "Skrimir", "Sanaki", "Pelleas", "Oliver", "Yune", "Chrom", "Robin", "Lissa", "Frederick", "Sully", "Stahl", "Vaike", "Sumia", "Kellam", "Donnel", "Lon'qu", "Ricken", "Maribelle", "Panne", "Gaius", "Cordelia", "Gregor", "Nowi", "Libra", "Tharja", "Olivia", "Cherche", "Henry", "Say'ri", "Adult Tiki", "Basilio", "Flava", "Lucina", "Owain", "Inigo", "Cynthia", "Severa", "Morgan", "Noire", "Nah", "Gangrel", "Emmeryn", "Aversa", "Priam", "Corrin", "Azura", "Felicia", "Jakob", "Silas", "Kaze", "Mozu", "Shura", "Shura's Boots", "Ryoma", "Hinoka", "Takumi", "Sakura", "Saizo", "Kagero", "Setsuna", "Azama", "Hinata", "Oboro", "Hana", "Subaki", "Hayato", "Rinkah", "Orochi", "Kaden", "Scarlet", "Xander", "Camilla", "Leo", "Elise", "Peri", "Beruka", "Odin Specifically (Not Owain)", "Niles", "Effie", "Arthur", "Nyx", "Charlotte", "Benny", "Keaton", "Gunther", "Flora", "Yukimara", "Izana", "Fuga", "Byleth", "Edelgard", "Hubert", "Ferdinand", "Linhardt", "Caspar", "Bernadetta", "Dorothea", "Petra", "Dimitri", "Dedue", "Felix", "Sylvain", "Ashe", "Mercedes", "Annette", "Ingrid", "Claude", "Lorenz", "Raphael", "Ignatz", "Lysithea", "Marianne", "Hilda", "Leonie", "Seteth", "Flayn", "Hanneman", "Manuela", "Gilbert", "Alois", "Catherine", "Shamir", "Cyril", "Jeritza", "Yuri", "Balthus", "Constance", "Hapi", "Sothis", "Jeralt", "Monica", "Lonato", "Rhea", "Kostas", "Alear", "Vander", "Clanne", "Framme", "Alfred", "Céline", "Boucheron", "Etie", "Louis", "Chloé", "Jean", "Diamant", "Alcryst", "Amber", "Jade", "Citrinne", "Lapis", "Yunaka", "Saphir", "Ivy", "Hortensia", "Zelkov", "Kagetsu", "Rosado", "Goldmary", "Timerra", "Fogado", "Merrin", "Panette", "Bunet", "Pandreo", "Seadall", "Veyle", "Mauvier", "Gregory", "Zephia", "Griss", "Veyle (but evil)", "Sombron", "Marni"],
+      character: ["Marth", "Caeda", "Jagen", "Cain", "Abel", "Gordin", "Ogma", "Barst", "Bord", "Cord", "Navarre", "Minerva", "Linde", "Palla", "Catria", "Est", "The Young Version of Tiki", "Anna", "Camus", "Alm", "Gray", "Tobin", "Kliff", "Faye", "Lukas", "Silque", "Clair", "Clive", "Forsyth", "Python", "Luthier", "Mathilda", "Delthea", "Tatiana", "Zeke", "Mycen", "Celica", "Mae", "Boey", "Genny", "Saber", "Valbar", "Leon", "Kamui", "Jesse", "Atlas", "Sonya", "Deen", "Nomah", "Conrad", "Fernand", "Mila", "Duma", "Rinea", "Berkut", "Slayde", "Desaix", "Rinea (On Fire)", "Sigurd", "Naoise", "Alec", "Arden", "Azel", "Lex", "Quan", "Ethlyn", "Finn", "Midir", "Dew", "Edain", "Ayra", "Deirdre", "Jamke", "Holyn", "Lachesis", "Beowolf", "Lewyn", "Silvia", "Erinys", "Tailtiu", "Brigid", "Claude (The FE4 Version SPECIFICALLY)", "Manfroy", "Arvis", "Seliph", "Lana", "Larcei", "Oifey", "Lester", "Shannan", "Patty", "Ares", "Lene", "Tine", "Hannibal", "Altena", "Julius", "Ishtar", "Eldigan", "Travant", "Leif", "Osain", "Halvan", "Eyvel", "Dagdar", "Tanya", "Marty", "Ronan", "Safy", "Lifis", "Lara", "Fergus", "Karin", "Dalsin", "Asbel", "Nanna", "Shiva", "Olwen", "Mareeta", "Perne", "Tina", "Shannam", "Xavier", "Ced", "Raydrik", "Roy", "Old Man Marcus", "Alen", "Lance", "Wolt", "Bors", "Merlinus", "Dieck", "Shanna", "Chad", "Lugh", "Clarine", "Rutger", "Dorothy", "Sue", "Lilina", "Gwendolyn", "Fir", "Gonzalez", "Geese", "Larum", "Raigh", "Cath", "Melady", "Perceval", "Cecilia", "Sophia", "Fae", "Lyn", "Sain", "Kent", "Florina", "Wil", "Dorcas", "Serra", "Erk", "Rath", "Matthew", "Nils", "Wallace", "Eliwood", "Marcus", "Lowen", "Rebecca", "Bartre", "Hector", "Oswin", "Guy", "Priscilla", "Raven", "Canas", "Dart", "Fiora", "Legault", "Ninian", "Isadora", "Heath", "Hawkeye", "Farina", "Pent", "Louise", "Nino", "Jaffar", "Vaida", "Renault", "Athos", "Zephiel", "Guinevere", "Nergal", "Erika", "Seth", "Franz", "Gilliam", "Vanessa", "Moulder", "Ross", "Garcia", "Neimi", "Colm", "Lute", "Joshua", "Ephraim", "Forde", "Kyle", "Orson", "Tana", "Amelia", "Gerik", "Tethys", "Marisa", "L'Arachel", "Dozla", "Ewan", "Cormag", "Rennac", "Duessel", "Lyon", "Ike", "Titania", "Oscar", "Boyd", "Shinon", "Soren", "Mia", "Ilyana", "Mist", "Rolf", "Marcia", "Lethe", "Mordecai", "Volke", "Brom", "Nephenee", "Zihark", "Sothe", "Jill", "Astrid", "Makalov", "Tormod", "Devdan", "Tanith", "Reyson", "Ranulf", "Harr", "Lucia", "Elincia", "Ashnard", "Black Knight", "Micaiah", "Edward", "Leonardo", "Nolan", "Meg", "Volug", "Fiona", "Naliah", "Danved", "Skrimir", "Sanaki", "Pelleas", "Oliver", "Yune", "Chrom", "Robin", "Lissa", "Frederick", "Sully", "Stahl", "Vaike", "Sumia", "Kellam", "Donnel", "Lon'qu", "Ricken", "Maribelle", "Panne", "Gaius", "Cordelia", "Gregor", "Nowi", "Libra", "Tharja", "Olivia", "Cherche", "Henry", "Say'ri", "Adult Tiki", "Basilio", "Flava", "Lucina", "Owain", "Inigo", "Cynthia", "Severa", "Morgan", "Noire", "Nah", "Gangrel", "Emmeryn", "Aversa", "Priam", "Corrin", "Azura", "Felicia", "Jakob", "Silas", "Kaze", "Mozu", "Shura", "Shura's Boots", "Ryoma", "Hinoka", "Takumi", "Sakura", "Saizo", "Kagero", "Setsuna", "Azama", "Hinata", "Oboro", "Hana", "Subaki", "Hayato", "Rinkah", "Orochi", "Kaden", "Scarlet", "Xander", "Camilla", "Leo", "Elise", "Peri", "Beruka", "Odin Specifically (Not Owain)", "Niles", "Effie", "Arthur", "Nyx", "Charlotte", "Benny", "Keaton", "Gunther", "Flora", "Yukimara", "Izana", "Fuga", "Byleth", "Edelgard", "Hubert", "Ferdinand", "Linhardt", "Caspar", "Bernadetta", "Dorothea", "Petra", "Dimitri", "Dedue", "Felix", "Sylvain", "Ashe", "Mercedes", "Annette", "Ingrid", "Claude", "Lorenz", "Raphael", "Ignatz", "Lysithea", "Marianne", "Hilda", "Leonie", "Seteth", "Flayn", "Hanneman", "Manuela", "Gilbert", "Alois", "Catherine", "Shamir", "Cyril", "Jeritza", "Yuri", "Balthus", "Constance", "Hapi", "Sothis", "Jeralt", "Monica", "Lonato", "Rhea", "Kostas", "Alear", "Vander", "Clanne", "Framme", "Alfred", "Céline", "Boucheron", "Etie", "Louis", "Chloé", "Jean", "Diamant", "Alcryst", "Amber", "Jade", "Citrinne", "Lapis", "Yunaka", "Saphir", "Ivy", "Hortensia", "Zelkov", "Kagetsu", "Rosado", "Goldmary", "Timerra", "Fogado", "Merrin", "Panette", "Bunet", "Pandreo", "Seadall", "Veyle", "Mauvier", "Gregory", "Zephia", "Griss", "Veyle (but evil)", "Sombron", "Marni"],
       game: ["Shadow Dragon and the Blade of Light", "Gaiden", "Mystery of the Emblem", "Genealogy of the Holy War", "Thracia 776", "Binding Blade", "Blazing Blade", "Sacred Stones", "Path of Radiance", "Radiant Dawn", "Awakening", "Fates", "Shadow Dragon (DS)", "New Mystery of the Emblem", "Three Houses", "Engage", "Tokyo Mirage Sessions", "Heroes", "Warriors", "Three Hopes"],
       weapon_type: ["swords", "lances", "axes", "bows", "tomes"],
       concept: ["incest", "war crimes", "child soldiers", "slavery", "eugenics", "mind control", "romance", "cults", "racism", "parental abuse", "dead parents", "trauma"],
@@ -109,14 +114,27 @@
       player: ["Pavise", "Faerghast", "Mekkah", "Armads4Prez", "Zoran", "Bismix", "Excelblem", "LuckyCrit", "BenFM", "Halvey", "ActualLizard", "BigKlingy", "Professor Bopper", "Choops", "Scarf", "MythrilZenith", "ShaneBrained", "Dani Doyle", "EatUrGrns", "Pheonixmaster1", "Speedwinghere", "Deltre", "dondon151", "FEMSPaint", "Bicken"],
     };
 
-    function generateHotTake() {
-      let template = templates[Math.floor(Math.random() * templates.length)];
-      template = template.replace(/\{(\w+)\}/g, (_, key) => {
-        const options = data[key];
-        return options[Math.floor(Math.random() * options.length)];
-      });
-      document.getElementById("hotTake").innerText = template;
+    const button = document.getElementById("hotTakeButton");
+  const hotTakeDiv = document.getElementById("hotTake");
+  let clickedOnce = false;
+
+  function generateHotTake() {
+    let template = templates[Math.floor(Math.random() * templates.length)];
+    template = template.replace(/\{(\w+)\}/g, (_, key) => {
+      const options = data[key];
+      return options[Math.floor(Math.random() * options.length)];
+    });
+
+    hotTakeDiv.innerText = template;
+
+    if (!clickedOnce) {
+      button.innerText = "Another!";
+      clickedOnce = true;
     }
-  </script>
+  }
+
+</script>
+
+
 </body>
 </html>
